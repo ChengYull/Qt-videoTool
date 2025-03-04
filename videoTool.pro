@@ -9,12 +9,16 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    imagepro.cpp \
     main.cpp \
+    videofilter.cpp \
     videothread.cpp \
     videowidget.cpp \
     widgetUI.cpp
 
 HEADERS += \
+    imagepro.h \
+    videofilter.h \
     videothread.h \
     videowidget.h \
     widgetUI.h
@@ -31,3 +35,6 @@ LIBS+=D:/OpenCV/opencv_MinGW4.8/OpenCV-MinGW-Build-OpenCV-3.4.8-x64/x64/mingw/bi
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    README.md

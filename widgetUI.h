@@ -27,8 +27,14 @@ private slots:
 
     void on_playSlider_sliderReleased();
 
+    void on_setButton_clicked();
+
+    void on_exportButton_clicked();
+
+    void exportEnd();
 private:
     Ui::WidgetUI *ui;
     bool isSliderPress = false;
+    bool isExport = false;
 };
 #endif // WIDGETUI_H
