@@ -12,22 +12,64 @@ VideoThread::~VideoThread()
     wait();
 }
 
-
+// 打开视频
 bool VideoThread::Open(const std::string file)
 {
     // Open是在其他线程中调用，调用时应仅单个线程可调用，加锁
     mutex.lock();
-    bool bRes = cap1.open(file);
+    ifOpen = cap1.open(file);
+    if(!ifOpen){
+        mutex.unlock();
+        return ifOpen;
+    }
+    cv::Mat frame;
+    if(cap1.read(frame)){
+        emit ViewImageSrc(frame);
+        emit ViewDes(frame);
+    }
     // 解锁
     mutex.unlock();
-    if(!bRes) return bRes;
+
     fps = cap1.get(cv::CAP_PROP_FPS);
     allFramesCount = cap1.get(cv::CAP_PROP_FRAME_COUNT);
     if(fps == 0) fps = 25;
-    qDebug() << "file :" << QString::fromStdString(file) << " " << bRes;
-    return bRes;
+    qDebug() << "file :" << QString::fromStdString(file) << " " << ifOpen;
+    return ifOpen;
 }
 
+bool VideoThread::Open2(const std::string file)
+{
+    mutex.lock();
+    // 取消水印
+    isMark = false;
+    bool re = cap2.open(file);
+    if(!re){
+        mutex.unlock();
+        return re;
+    }
+    mutex.unlock();
+    cv::Mat frame;
+    if(cap2.read(frame)){
+        // 显示第一帧
+        emit ViewSrc2(frame);
+    }
+}
+
+void VideoThread::Play()
+{
+    mutex.lock();
+    isPlay = true;
+    mutex.unlock();
+}
+
+void VideoThread::Pause()
+{
+    mutex.lock();
+    isPlay = false;
+    mutex.unlock();
+}
+
+// 获取当前位置
 double VideoThread::GetPos()
 {
     double pos = 0;
@@ -43,6 +85,7 @@ double VideoThread::GetPos()
     return pos;
 }
 
+// 跳转
 bool VideoThread::Seek(int frame)
 {
     if(!cap1.isOpened()) return false;
@@ -56,7 +99,7 @@ bool VideoThread::Seek(int frame)
     mutex.unlock();
     return true;
 }
-
+// 跳转
 bool VideoThread::Seek(double pos)
 {
     if(!cap1.isOpened()) return false;
@@ -64,7 +107,8 @@ bool VideoThread::Seek(double pos)
     return Seek(frame);
 }
 
-bool VideoThread::StartSave(const std::string filename, int width, int height)
+// 开始保存
+bool VideoThread::StartSave(const std::string filename, int width, int height, bool isColor)
 {
     qDebug() << "start save";
     Seek(0);
@@ -81,7 +125,8 @@ bool VideoThread::StartSave(const std::string filename, int width, int height)
     videoWriter.open(filename,
                      cv::VideoWriter::fourcc('X', '2', '6', '4'),
                      this->fps,
-                     cv::Size(width, height));
+                     cv::Size(width, height),
+                     isColor);
     if(!videoWriter.isOpened()){
         qDebug() << "开始导出失败" << QString::fromStdString(filename) << width << height;
         mutex.unlock();
@@ -92,6 +137,7 @@ bool VideoThread::StartSave(const std::string filename, int width, int height)
     return true;
 }
 
+// 停止保存
 void VideoThread::StopSave()
 {
     qDebug() << "停止导出...";
@@ -101,9 +147,19 @@ void VideoThread::StopSave()
     mutex.unlock();
 }
 
+void VideoThread::SetMark(cv::Mat mark)
+{
+    mutex.lock();
+    isMark = true;
+    this->mark = mark;
+    emit ViewSrc2(mark);
+    mutex.unlock();
+}
+
 void VideoThread::run()
 {
     cv::Mat frame1;
+    cv::Mat frame2;
     for(;;){
         mutex.lock();
         if(isExit){
@@ -111,6 +167,11 @@ void VideoThread::run()
             break;
         }
         if(!cap1.isOpened()){
+            mutex.unlock();
+            msleep(5);
+            continue;
+        }
+        if(!isPlay){
             mutex.unlock();
             msleep(5);
             continue;
@@ -126,11 +187,18 @@ void VideoThread::run()
             msleep(5);
             continue;
         }
+        if(!isMark && cap2.isOpened() && cap2.read(frame2) && !frame2.empty()){
+            // 显示图像2
+            emit ViewSrc2(frame2);
+        }
+        if(isMark){
+            frame2 = mark;
+        }
         // 显示图像1
         if(!isWrite)
             emit ViewImageSrc(frame1);
-        // 过滤器
-        cv::Mat des = VideoFilter::Get()->Filter(frame1, cv::Mat());
+        // 过滤器处理视频
+        cv::Mat des = VideoFilter::Get()->Filter(frame1, frame2);
         // 显示输出图像
         if(!isWrite)
             emit ViewDes(des);

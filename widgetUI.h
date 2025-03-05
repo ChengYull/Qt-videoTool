@@ -32,9 +32,21 @@ private slots:
     void on_exportButton_clicked();
 
     void exportEnd();
+
+    void on_playButton_clicked();
+
+    void on_pauseButton_clicked();
+
+    void on_markButton_clicked();
+
+    void on_mergeButton_clicked();
+
 private:
     Ui::WidgetUI *ui;
     bool isSliderPress = false;
     bool isExport = false;
+    bool isColor = true;
+    bool isMark = false;
+    bool isMerge = false;
 };
 #endif // WIDGETUI_H
