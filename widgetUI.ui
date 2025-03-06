@@ -95,10 +95,16 @@ background-color: rgb(53, 53, 53);
 #label_9{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
 #label_10{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
 #label_11{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
-#sideCheckBox{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
-#mergeCheckBox{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
+
 #label_12{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
-#label_13{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}#label_14{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}#label_15{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}#label_16{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}</string>
+#label_13{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}#label_14{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}#label_15{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}#label_16{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
+QCheckBox {
+    color: red;          /* 文字颜色 */
+    spacing: 5px;         /* 文字与图标的间距 */
+}
+
+
+</string>
   </property>
   <widget class="QPushButton" name="closeButton">
    <property name="geometry">

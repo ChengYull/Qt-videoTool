@@ -235,6 +235,7 @@ void Widget::on_chooseSrc2Button_clicked()
                                                 "请选择视频文件",
                                                 "",
                                                 "Videos (*.mp4;*.avi;);");
+    if(path.isEmpty()) return;
     std::string file = path.toLocal8Bit().data();
     isMerge = VideoThread::Get()->Open2(file);
 }

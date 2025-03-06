@@ -48,13 +48,13 @@ bool VideoThread::Open2(const std::string file)
         mutex.unlock();
         return re;
     }
-
-    mutex.unlock();
     cv::Mat frame;
     if(cap2.read(frame)){
         // 显示第一帧
         emit ViewSrc2(frame);
     }
+    mutex.unlock();
+    return re;
 }
 
 void VideoThread::Play()
