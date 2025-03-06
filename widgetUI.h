@@ -39,7 +39,7 @@ private slots:
 
     void on_markButton_clicked();
 
-    void on_mergeButton_clicked();
+    void on_chooseSrc2Button_clicked();
 
 private:
     Ui::WidgetUI *ui;

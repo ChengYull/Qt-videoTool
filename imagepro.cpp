@@ -103,12 +103,31 @@ void ImagePro::Mark(int x, int y, double alpha)
 
 void ImagePro::Merge(double alpha)
 {
-    if(src2.empty() || src1.empty()) return;
+    if(src2.empty() || des.empty()) return;
     // 大小改为一致再融合
-    cv::resize(src2, src2, src1.size());
+    cv::resize(src2, src2, des.size());
     cv::Mat tmpMat = src2.clone();
     if(src2.type() == CV_8UC1)
         cv::cvtColor(src2, tmpMat, cv::COLOR_GRAY2BGR);
-    cv::addWeighted(tmpMat, alpha, src1, 1 - alpha, 0, des);
+    cv::addWeighted(tmpMat, alpha, des, 1 - alpha, 0, des);
+}
+
+void ImagePro::Side()
+{
+    if(src2.empty() || des.empty()) return;
+    // 保持高度一致
+    cv::resize(src2, src2, cv::Size(src2.size().width, des.size().height));
+    int dw = des.cols + src2.cols;
+    int dh = des.rows;
+    // 拷贝原输出
+    cv::Mat tmpMat = des.clone();
+    // 重新分配空间
+    des = cv::Mat(cv::Size(dw, dh), src1.type());
+    // 分别定义两块ROI区域
+    cv::Mat r1 = des(cv::Rect(0, 0, tmpMat.cols, dh));
+    cv::Mat r2 = des(cv::Rect(tmpMat.cols, 0, src2.cols, dh));
+    // 填充ROI区域
+    tmpMat.copyTo(r1);
+    src2.copyTo(r2);
 }
 ImagePro::ImagePro() {}

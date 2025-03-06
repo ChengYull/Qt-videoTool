@@ -56,6 +56,9 @@ public:
             case XTASK_MERGE:
                 p.Merge(task.para[0]);
                 break;
+            case XTASK_SIDE:
+                p.Side();
+                break;
             default:
                 break;
             }

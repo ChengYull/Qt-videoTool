@@ -44,6 +44,10 @@ public:
 
     // 融合
     void Merge(double alpha);
+
+    // 并排
+    void Side();
+
     ImagePro();
 
 private:

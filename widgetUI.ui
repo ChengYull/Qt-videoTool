@@ -94,7 +94,11 @@ background-color: rgb(53, 53, 53);
 #label_8{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
 #label_9{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
 #label_10{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
-#label_11{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}</string>
+#label_11{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
+#sideCheckBox{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
+#mergeCheckBox{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
+#label_12{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}
+#label_13{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}#label_14{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}#label_15{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}#label_16{color: rgb(255, 255, 255);font: 10pt &quot;黑体&quot;;}</string>
   </property>
   <widget class="QPushButton" name="closeButton">
    <property name="geometry">
@@ -221,7 +225,7 @@ background-color: rgb(53, 53, 53);
   <widget class="QPushButton" name="setButton">
    <property name="geometry">
     <rect>
-     <x>690</x>
+     <x>670</x>
      <y>390</y>
      <width>81</width>
      <height>41</height>
@@ -542,7 +546,7 @@ background-color: rgb(53, 53, 53);
   <widget class="QComboBox" name="ColorComboBox">
    <property name="geometry">
     <rect>
-     <x>660</x>
+     <x>680</x>
      <y>460</y>
      <width>101</width>
      <height>22</height>
@@ -563,7 +567,7 @@ background-color: rgb(53, 53, 53);
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>350</y>
+     <y>360</y>
      <width>61</width>
      <height>31</height>
     </rect>
@@ -575,8 +579,8 @@ background-color: rgb(53, 53, 53);
   <widget class="QSpinBox" name="markXSpinBox">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>360</y>
+     <x>110</x>
+     <y>370</y>
      <width>51</width>
      <height>22</height>
     </rect>
@@ -588,8 +592,8 @@ background-color: rgb(53, 53, 53);
   <widget class="QSpinBox" name="markYSpinBox">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>360</y>
+     <x>190</x>
+     <y>370</y>
      <width>51</width>
      <height>22</height>
     </rect>
@@ -601,8 +605,8 @@ background-color: rgb(53, 53, 53);
   <widget class="QDoubleSpinBox" name="markADoubleSpinBox">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>360</y>
+     <x>300</x>
+     <y>370</y>
      <width>62</width>
      <height>22</height>
     </rect>
@@ -615,6 +619,9 @@ background-color: rgb(53, 53, 53);
    </property>
    <property name="singleStep">
     <double>0.100000000000000</double>
+   </property>
+   <property name="value">
+    <double>0.500000000000000</double>
    </property>
   </widget>
   <widget class="QLabel" name="label_8">
@@ -677,7 +684,7 @@ background-color: rgb(53, 53, 53);
     </size>
    </property>
   </widget>
-  <widget class="QPushButton" name="mergeButton">
+  <widget class="QPushButton" name="chooseSrc2Button">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -687,14 +694,14 @@ background-color: rgb(53, 53, 53);
     </rect>
    </property>
    <property name="text">
-    <string>视频融合</string>
+    <string>选择视频2</string>
    </property>
   </widget>
   <widget class="QDoubleSpinBox" name="mergeADoubleSpinBox">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>500</y>
+     <x>330</x>
+     <y>410</y>
      <width>62</width>
      <height>22</height>
     </rect>
@@ -708,12 +715,15 @@ background-color: rgb(53, 53, 53);
    <property name="singleStep">
     <double>0.100000000000000</double>
    </property>
+   <property name="value">
+    <double>0.500000000000000</double>
+   </property>
   </widget>
   <widget class="QLabel" name="label_10">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>500</y>
+     <x>250</x>
+     <y>410</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -726,6 +736,114 @@ background-color: rgb(53, 53, 53);
    </property>
    <property name="wordWrap">
     <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="sideCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>490</y>
+     <width>111</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>开启视频合并</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>460</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>图像格式：</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>370</y>
+     <width>31</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>x:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>370</y>
+     <width>31</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>y:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_14">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>370</y>
+     <width>51</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>透明度:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="mergeCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>450</y>
+     <width>111</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>开启视频融合</string>
    </property>
   </widget>
  </widget>

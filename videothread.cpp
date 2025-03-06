@@ -22,6 +22,7 @@ bool VideoThread::Open(const std::string file)
         mutex.unlock();
         return ifOpen;
     }
+
     cv::Mat frame;
     if(cap1.read(frame)){
         emit ViewImageSrc(frame);
@@ -47,6 +48,7 @@ bool VideoThread::Open2(const std::string file)
         mutex.unlock();
         return re;
     }
+
     mutex.unlock();
     cv::Mat frame;
     if(cap2.read(frame)){
@@ -89,13 +91,13 @@ double VideoThread::GetPos()
 bool VideoThread::Seek(int frame)
 {
     if(!cap1.isOpened()) return false;
+
     mutex.lock();
+    if(cap2.isOpened()){
+        cap2.set(cv::CAP_PROP_POS_FRAMES, frame);
+    }
     if(frame <= allFramesCount)
         cap1.set(cv::CAP_PROP_POS_FRAMES, frame);
-    else{
-        mutex.unlock();
-        return false;
-    }
     mutex.unlock();
     return true;
 }

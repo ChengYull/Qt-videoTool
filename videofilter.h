@@ -17,7 +17,8 @@ enum XTaskType{
     XTASK_CLIP,
     XTASK_GRAY,
     XTASK_MARK,
-    XTASK_MERGE
+    XTASK_MERGE,
+    XTASK_SIDE
 
 };
 

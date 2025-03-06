@@ -83,6 +83,7 @@ void Widget::on_setButton_clicked()
     // 初始化
     VideoFilter::Get()->Clear();
     isColor = true;
+    isMerge = ui->mergeCheckBox->isChecked();
 
     // 图像裁剪
     double x = ui->xSpinBox->value();
@@ -143,6 +144,10 @@ void Widget::on_setButton_clicked()
     if(isMerge){
         double a = ui->mergeADoubleSpinBox->value();
         VideoFilter::Get()->Add(XTask{ XTASK_MERGE, {a} });
+    }
+    // 视频合并
+    if(ui->sideCheckBox->isChecked()){
+        VideoFilter::Get()->Add(XTask{ XTASK_SIDE});
     }
 
 }
@@ -222,7 +227,7 @@ void Widget::on_markButton_clicked()
 }
 
 
-void Widget::on_mergeButton_clicked()
+void Widget::on_chooseSrc2Button_clicked()
 {
     isMark = false;
     isMerge = false;
